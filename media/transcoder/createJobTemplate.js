@@ -86,8 +86,9 @@ function main(projectId, location, templateId) {
     };
 
     // Run request
-    const [jobTemplate] =
-      await transcoderServiceClient.createJobTemplate(request);
+    const [jobTemplate] = await transcoderServiceClient.createJobTemplate(
+      request
+    );
     console.log(`Job template: ${jobTemplate.name}`);
   }
 

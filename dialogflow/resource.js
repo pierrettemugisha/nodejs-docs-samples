@@ -106,8 +106,9 @@ async function listSessionEntityTypes(projectId, sessionId) {
   };
 
   // Send the request for retrieving the sessionEntityType.
-  const [response] =
-    await sessionEntityTypesClient.listSessionEntityTypes(request);
+  const [response] = await sessionEntityTypesClient.listSessionEntityTypes(
+    request
+  );
   response.forEach(sessionEntityType => {
     console.log(`Session entity type name: ${sessionEntityType.name}`);
     console.log(`Number of entities: ${sessionEntityType.entities.length}\n`);
@@ -138,8 +139,9 @@ async function deleteSessionEntityType(
   };
 
   // Send the request for retrieving the sessionEntityType.
-  const result =
-    await sessionEntityTypesClient.deleteSessionEntityType(request);
+  const result = await sessionEntityTypesClient.deleteSessionEntityType(
+    request
+  );
   console.log(`Session entity type ${entityTypeDisplayName} deleted`);
   return result;
 }

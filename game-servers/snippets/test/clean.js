@@ -62,8 +62,9 @@ module.exports = async () => {
         name: realm.name,
       };
 
-      const [deleteRealmOperation] =
-        await realmsClient.deleteRealm(realmDeleteRequest);
+      const [deleteRealmOperation] = await realmsClient.deleteRealm(
+        realmDeleteRequest
+      );
       await deleteRealmOperation.promise();
     }
   }

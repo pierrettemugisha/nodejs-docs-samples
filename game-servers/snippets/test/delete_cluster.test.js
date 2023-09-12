@@ -73,8 +73,9 @@ describe('Game Servers Delete Cluster Test', () => {
       },
     };
 
-    const [operation2] =
-      await gameClustersClient.createGameServerCluster(createClusterRequest);
+    const [operation2] = await gameClustersClient.createGameServerCluster(
+      createClusterRequest
+    );
     await operation2.promise();
   });
 

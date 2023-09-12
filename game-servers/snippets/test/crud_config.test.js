@@ -45,8 +45,9 @@ describe('Game Server Config Test', () => {
       parent: `projects/${projectId}/locations/global`,
       deploymentId: deploymentId,
     };
-    const [operation] =
-      await deploymentClient.createGameServerDeployment(request);
+    const [operation] = await deploymentClient.createGameServerDeployment(
+      request
+    );
     await operation.promise();
   });
 
@@ -88,8 +89,9 @@ describe('Game Server Config Test', () => {
         deploymentId
       ),
     };
-    const [operation] =
-      await deploymentClient.deleteGameServerDeployment(request);
+    const [operation] = await deploymentClient.deleteGameServerDeployment(
+      request
+    );
     await operation.promise();
   });
 });

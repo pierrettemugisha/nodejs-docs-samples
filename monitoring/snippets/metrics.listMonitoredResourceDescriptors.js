@@ -37,8 +37,9 @@ function main(projectId) {
     };
 
     // Lists monitored resource descriptors
-    const [descriptors] =
-      await client.listMonitoredResourceDescriptors(request);
+    const [descriptors] = await client.listMonitoredResourceDescriptors(
+      request
+    );
     console.log('Monitored Resource Descriptors:');
     descriptors.forEach(descriptor => {
       console.log(descriptor.name);

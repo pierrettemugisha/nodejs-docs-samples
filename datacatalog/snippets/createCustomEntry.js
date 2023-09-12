@@ -97,8 +97,9 @@ async function main(projectId, entryGroupId, entryId, tagTemplateId) {
     };
 
     // Use the client to send the API request.
-    const [createdEntryGroup] =
-      await datacatalog.createEntryGroup(entryGroupRequest);
+    const [createdEntryGroup] = await datacatalog.createEntryGroup(
+      entryGroupRequest
+    );
     console.log(`Created entry group: ${createdEntryGroup.name}`);
 
     // Construct the Entry for the Entry request.
@@ -161,8 +162,9 @@ async function main(projectId, entryGroupId, entryId, tagTemplateId) {
     };
 
     // Use the client to send the API request.
-    const [createdTagTemplate] =
-      await datacatalog.createTagTemplate(tagTemplateRequest);
+    const [createdTagTemplate] = await datacatalog.createTagTemplate(
+      tagTemplateRequest
+    );
     console.log(`Created template: ${createdTagTemplate.name}`);
 
     // Attach a Tag to the custom Entry.
