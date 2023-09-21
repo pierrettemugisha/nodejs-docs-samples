@@ -115,6 +115,7 @@ const deleteRegionDisk = async (projectId, region, diskName) => {
 describe('snapshots tests', () => {
   const diskName = `gcloud-test-disk-${uuid.v4().split('-')[0]}`;
   const snapshotName = `gcloud-test-snapshot-${uuid.v4().split('-')[0]}`;
+  const snapshotDeleteByFilterName = `gcloud-test-snapshot-delete-filter-${uuid.v4().split('-')[0]}`;
   const zone = 'europe-central2-b';
   const location = 'europe-central2';
 
@@ -127,7 +128,7 @@ describe('snapshots tests', () => {
     );
   });
 
-  it('should create zonal snapshot and remove', async () => {
+  it('should create zonal snapshot, retrieve and remove', async () => {
     const projectId = await instancesClient.getProjectId();
 
     const [newestDebian] = await imagesClient.getFromFamily({
@@ -140,9 +141,28 @@ describe('snapshots tests', () => {
     let output = execSync(
       `node snapshots/createSnapshot ${projectId} ${diskName} ${snapshotName} ${zone} '' ${location} ''`
     );
-
     assert.match(output, /Snapshot created./);
 
+    // Create another snapshot to test delete by filter.
+    output = execSync(
+        `node snapshots/createSnapshot ${projectId} ${diskName} ${snapshotDeleteByFilterName} ${zone} '' ${location} ''`
+    );
+    assert.match(output, /Snapshot created./);
+
+    // Test retrieve the snapshot.
+    output = execSync(
+        `node snapshots/getSnapshot ${projectId} ${snapshotName}`
+    );
+    assert.match(output, /Retrieved the snapshot/);
+
+    // Test delete by filter.
+    const filter = `name = ${snapshotDeleteByFilterName}`
+    output = execSync(
+        `node snapshots/deleteSnapshotsByFilter ${projectId} ${filter}`
+    );
+    assert.match(output, /Snapshots deleted by filter./);
+
+    // Test delete snapshot.
     output = execSync(
       `node snapshots/deleteSnapshot ${projectId} ${snapshotName}`
     );
@@ -151,7 +171,7 @@ describe('snapshots tests', () => {
     await deleteDisk(projectId, zone, diskName);
   });
 
-  it('should create regional snapshot and remove', async () => {
+  it('should create regional snapshot, retrieve and remove', async () => {
     const projectId = await instancesClient.getProjectId();
 
     await createRegionDisk(projectId, location, diskName);
@@ -159,9 +179,28 @@ describe('snapshots tests', () => {
     let output = execSync(
       `node snapshots/createSnapshot ${projectId} ${diskName} ${snapshotName} '' ${location} ${location} ''`
     );
-
     assert.match(output, /Snapshot created./);
 
+    // Create another snapshot to test delete by filter.
+    output = execSync(
+        `node snapshots/createSnapshot ${projectId} ${diskName} ${snapshotDeleteByFilterName} '' ${location} ${location} ''`
+    );
+    assert.match(output, /Snapshot created./);
+
+    // Test retrieve snapshot.
+    output = execSync(
+        `node snapshots/getSnapshot ${projectId} ${snapshotName}`
+    );
+    assert.match(output, /Retrieved the snapshot/);
+
+    // Test delete by filter.
+    const filter = `name = ${snapshotDeleteByFilterName}`
+    output = execSync(
+        `node snapshots/deleteSnapshotsByFilter ${projectId} ${filter}`
+    );
+    assert.match(output, /Snapshots deleted by filter./);
+
+    // Test delete snapshot.
     output = execSync(
       `node snapshots/deleteSnapshot ${projectId} ${snapshotName}`
     );
