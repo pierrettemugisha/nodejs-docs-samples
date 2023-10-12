@@ -15,7 +15,7 @@
 'use strict';
 
 // [START functions_env_vars]
-const functions = require('@google-cloud/functions-framework');
+import functions from '@google-cloud/functions-framework';
 
 functions.http('envVar', (req, res) => {
   // Sends 'bar' as response

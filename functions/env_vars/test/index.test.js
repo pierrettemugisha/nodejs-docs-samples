@@ -1,4 +1,4 @@
-// Copyright 2016 Google LLC
+// Copyright 2023 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,31 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+import assert from "assert";
+import {getFunction} from "@google-cloud/functions-framework/testing";
 
-const sinon = require('sinon');
-const assert = require('assert');
-const functions = require('../');
-
-const getMocks = () => {
-  const req = {};
-  const res = {
-    send: sinon.stub().returnsThis(),
-  };
-
-  return {
-    req: req,
-    res: res,
-  };
-};
-
-describe('functions_env_vars', () => {
-  it('should read env vars', () => {
-    const mocks = getMocks();
+describe("envVar", () => {
+  before(async () => {
+    // load the module that defines sample function
+    await import("../index.js");
     process.env['FOO'] = 'bar';
+  });
 
-    functions.envVar(mocks.req, mocks.res);
-
-    assert.strictEqual(mocks.res.send.calledWith('bar'), true);
+  it("returns the value for FOO variable", () => {
+    // get the function using the name it was registered with
+    const envVar = getFunction("envVar");
+    const req = {
+      body: {},
+    };
+    // a Response stub that captures the sent response
+    let result;
+    const res = {
+      send: (x) => {
+        result = x;
+      },
+    };
+    // invoke the function
+    envVar(req, res);
+    assert.equal(result, "bar");
   });
 });
