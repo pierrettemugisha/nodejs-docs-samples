@@ -12,6 +12,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
+    "start": "functions-framework --target=envVar --signature-type=http",
     "test": "c8 mocha -p -j 2 test/*.test.js --timeout=20000"
   },
   "dependencies": {
