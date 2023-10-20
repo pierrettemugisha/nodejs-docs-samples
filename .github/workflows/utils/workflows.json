@@ -86,6 +86,7 @@
   "opencensus",
   "retail",
   "run/filesystem",
+  "run/anewsample",
   "scheduler",
   "secret-manager",
   "service-directory/snippets",
