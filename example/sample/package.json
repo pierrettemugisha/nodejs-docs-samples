@@ -4,8 +4,11 @@
   "description": "An example sample",
   "main": "index.js",
   "scripts": {
-    "test": "c8 mocha -p -j 2 test/index.test.js --exit"
+    "start": "node index.js",
+    "test": "c8 mocha -p -j 2 test/index.test.js --exit",
+    "fix": "gts fix",
+    "lint": "gts check"
   },
-  "author": "",
+  "author": "Google LLC",
   "license": "Apache-2.0"
 }
