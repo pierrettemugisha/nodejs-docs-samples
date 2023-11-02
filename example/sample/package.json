@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "c8 mocha -p -j 2 test/index.test.js --exit",
+    "test": "c8 mocha -p -j 2 test/index.test.js --exit", 
     "fix": "gts fix",
     "lint": "gts check"
+  },
+  "devDependencies": {
+    "_comment": "Dev depenedencies are installed with `npm install` at the root of repo"
   },
   "author": "Google LLC",
   "license": "Apache-2.0"
